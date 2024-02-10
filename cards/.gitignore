@@ -24,3 +24,7 @@ cards-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+# IntelliJ
+.idea
+cards.iml
