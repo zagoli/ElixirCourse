@@ -22,7 +22,27 @@ defmodule Identicon do
             |> Enum.map(&mirror_row/1)
             |> List.flatten
             |> Enum.with_index
+            |> filter_odd_numbers
         %Identicon.Image {image | grid: grid}
+    end
+
+    @doc """
+    Removes all odd "squares" from the grid
+    ## Examples
+        iex> grid = [{13, 0}, {2, 1}, {14, 2}, {13, 3}]
+        iex> filtered_grid = Identicon.filter_odd_numbers(grid)
+        iex> filtered_grid
+        [{2, 1}, {14, 2}]
+
+        iex> grid = []
+        iex> filtered_grid = Identicon.filter_odd_numbers(grid)
+        iex> filtered_grid
+        []
+    """
+    def filter_odd_numbers(grid) do
+        Enum.filter grid, fn {code, _idx} ->
+            rem(code, 2) == 0
+        end
     end
 
     @doc """
