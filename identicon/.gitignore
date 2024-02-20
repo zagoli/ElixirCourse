@@ -27,3 +27,5 @@ identicon-*.tar
 
 .idea
 identicon.iml
+
+*.png

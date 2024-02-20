@@ -4,6 +4,8 @@ defmodule Identicon do
     |> hash_md5
     |> pick_color
     |> build_grid
+    |> draw_image
+    |> save_image(name)
   end
 
   def hash_md5(string) do
@@ -19,11 +21,27 @@ defmodule Identicon do
       num_list
       |> Enum.chunk_every(3, 3, :discard)
       |> Enum.map(&mirror_row/1)
-      |> List.flatten()
-      |> Enum.with_index()
+      |> List.flatten
+      |> Enum.with_index
       |> filter_odd_numbers
 
     %Identicon.Image{image | grid: grid}
+  end
+
+  def draw_image(%Identicon.Image{color: color, grid: grid}) do
+    image = :egd.create(250, 250)
+    fill = :egd.color(color)
+
+    Enum.each(grid, fn {_code, square_index} ->
+      {start, stop} = get_square_coordinates(square_index)
+      :egd.filledRectangle(image, start, stop, fill)
+    end)
+
+    :egd.render(image)
+  end
+
+  def save_image(binary_image, image_name) do
+    File.write(image_name <> ".png", binary_image)
   end
 
   @doc """
@@ -40,12 +58,12 @@ defmodule Identicon do
       {{100, 50}, {150, 100}}
   """
   def get_square_coordinates(square_index) do
-      square_size_px = 50
-      x = rem(square_index, 5) * square_size_px
-      y = div(square_index, 5) * square_size_px
-      top_left = {x, y}
-      bottom_right = {x + square_size_px, y + square_size_px}
-      {top_left, bottom_right}
+    square_size_px = 50
+    x = rem(square_index, 5) * square_size_px
+    y = div(square_index, 5) * square_size_px
+    top_left = {x, y}
+    bottom_right = {x + square_size_px, y + square_size_px}
+    {top_left, bottom_right}
   end
 
   @doc """
