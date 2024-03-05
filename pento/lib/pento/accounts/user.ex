@@ -3,6 +3,7 @@ defmodule Pento.Accounts.User do
   import Ecto.Changeset
 
   schema "users" do
+	  field :username, :string
     field :email, :string
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
@@ -15,7 +16,7 @@ defmodule Pento.Accounts.User do
   A user changeset for registration.
 
   It is important to validate the length of both email and password.
-  Otherwise databases may truncate the email without warnings, which
+  Otherwise, databases may truncate the email without warnings, which
   could lead to unpredictable or insecure behaviour. Long passwords may
   also be very expensive to hash for certain algorithms.
 
