@@ -10,10 +10,10 @@ defmodule Pento.Promo do
     changeset = Recipient.changeset(recipient, attrs)
 
     if changeset.valid? do
-	    {:ok, changeset}
-	    # send the email
+      {:ok, changeset}
+      # send the email
     else
-	    {:error, changeset}
+      {:error, changeset}
     end
   end
 end

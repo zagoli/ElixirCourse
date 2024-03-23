@@ -48,15 +48,16 @@ defmodule PentoWeb.PromoLive do
       ) do
     case Promo.send_promo(recipient, recipient_params) do
       {:ok, _changeset} ->
-	      {:noreply,
-	        socket
-	        |> put_flash(:info, "Promo sent!")
-	        |> clear_form()}
+        {:noreply,
+         socket
+         |> put_flash(:info, "Promo sent!")
+         |> clear_form()}
+
       {:error, changeset} ->
-	      {:noreply,
-	        socket
-	        |> put_flash(:error, "Failed to send promo")
-	        |> assign_form(changeset)}
+        {:noreply,
+         socket
+         |> put_flash(:error, "Failed to send promo")
+         |> assign_form(changeset)}
     end
   end
 end

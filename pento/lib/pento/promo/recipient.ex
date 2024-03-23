@@ -1,15 +1,13 @@
 defmodule Pento.Promo.Recipient do
-
   defstruct [:first_name, :email]
-	@types %{first_name: :string, email: :string}
+  @types %{first_name: :string, email: :string}
 
-	import Ecto.Changeset
+  import Ecto.Changeset
 
-	def changeset(%__MODULE__{} = user, attrs) do
-	  {user, @types}
-	  |> cast(attrs, Map.keys(@types))
-	  |> validate_required([:first_name, :email])
-	  |> validate_format(:email, ~r{@})
-	end
-
+  def changeset(%__MODULE__{} = user, attrs) do
+    {user, @types}
+    |> cast(attrs, Map.keys(@types))
+    |> validate_required([:first_name, :email])
+    |> validate_format(:email, ~r{@})
+  end
 end
