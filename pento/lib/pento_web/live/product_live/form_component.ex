@@ -1,6 +1,5 @@
 defmodule PentoWeb.ProductLive.FormComponent do
   use PentoWeb, :live_component
-
   alias Pento.Catalog
 
   @impl true
