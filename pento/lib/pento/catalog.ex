@@ -38,6 +38,25 @@ defmodule Pento.Catalog do
   def get_product!(id), do: Repo.get!(Product, id)
 
   @doc """
+  Gets a single product by SKU.
+
+  ## Examples
+
+      iex> get_product_by_sku(123123123)
+      {:ok, %Product{}}
+
+      iex> get_product_by_sku(456456456)
+      {:error, 456456456}
+
+  """
+  def get_product_by_sku(sku) do
+	  case Repo.get_by(Product, sku: sku) do
+		  nil -> {:error, sku}
+		  result -> {:ok, result}
+	  end
+  end
+
+  @doc """
   Creates a product.
 
   ## Examples
