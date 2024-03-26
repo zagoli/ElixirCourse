@@ -1,0 +1,48 @@
+<div>
+      <.header>
+        <%= @title %>
+        <:subtitle>Use this form to manage product records in your database.</:subtitle>
+      </.header>
+
+      <.simple_form
+        for={@form}
+        id="product-form"
+        phx-target={@myself}
+        phx-change="validate"
+        phx-submit="save"
+      >
+        <.input field={@form[:name]} type="text" label="Name" />
+        <.input field={@form[:description]} type="text" label="Description" />
+        <.input field={@form[:unit_price]} type="number" label="Unit price" step="any" />
+        <.input field={@form[:sku]} type="number" label="Sku" />
+
+        <div phx-drop-target={@uploads.image.ref}>
+          <.label>Image</.label>
+          <.live_file_input upload={@uploads.image} />
+          <%= if not Enum.empty?(@uploads.image.entries) do %>
+            <.button
+              type="button"
+              phx-click="cancel-upload"
+              phx-value-ref={List.first(@uploads.image.entries).ref}
+              phx-target={@myself}>
+                  cancel
+            </.button>
+          <% end %>
+        </div>
+
+        <:actions>
+          <.button phx-disable-with="Saving...">Save Product</.button>
+        </:actions>
+      </.simple_form>
+
+      <%= for image <- @uploads.image.entries do %>
+        <div class="mt-4">
+          <.live_img_preview entry={image} width="60" />
+        </div>
+        <progress value={image.progress} max="100" />
+        <%= for err <- upload_errors(@uploads.image, image) do %>
+          <.error><%= err %></.error>
+        <% end %>
+      <% end %>
+
+    </div>

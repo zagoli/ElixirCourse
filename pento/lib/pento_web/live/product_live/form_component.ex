@@ -3,47 +3,6 @@ defmodule PentoWeb.ProductLive.FormComponent do
   alias Pento.Catalog
 
   @impl true
-  def render(assigns) do
-    ~H"""
-    <div>
-      <.header>
-        <%= @title %>
-        <:subtitle>Use this form to manage product records in your database.</:subtitle>
-      </.header>
-
-      <.simple_form
-        for={@form}
-        id="product-form"
-        phx-target={@myself}
-        phx-change="validate"
-        phx-submit="save"
-      >
-        <.input field={@form[:name]} type="text" label="Name" />
-        <.input field={@form[:description]} type="text" label="Description" />
-        <.input field={@form[:unit_price]} type="number" label="Unit price" step="any" />
-        <.input field={@form[:sku]} type="number" label="Sku" />
-        <div phx-drop-target={@uploads.image.ref}>
-          <.label>Image</.label>
-          <.live_file_input upload={@uploads.image} />
-        </div>
-        <:actions>
-          <.button phx-disable-with="Saving...">Save Product</.button>
-        </:actions>
-      </.simple_form>
-      <%= for image <- @uploads.image.entries do %>
-        <div class="mt-4">
-          <.live_img_preview entry={image} width="60" />
-        </div>
-        <progress value={image.progress} max="100" />
-        <%= for err <- upload_errors(@uploads.image, image) do %>
-          <.error><%= err %></.error>
-        <% end %>
-      <% end %>
-    </div>
-    """
-  end
-
-  @impl true
   def update(%{product: product} = assigns, socket) do
     changeset = Catalog.change_product(product)
 
@@ -88,6 +47,10 @@ defmodule PentoWeb.ProductLive.FormComponent do
 
   def handle_event("save", %{"product" => product_params}, socket) do
     save_product(socket, socket.assigns.action, product_params)
+  end
+
+  def handle_event("cancel-upload", %{"ref" => ref}, socket) do
+	  {:noreply, cancel_upload(socket, :image, ref)}
   end
 
   defp save_product(socket, :edit, product_params) do
