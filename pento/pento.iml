@@ -134,5 +134,6 @@
     <orderEntry type="library" name="hpack" level="project" />
     <orderEntry type="library" name="pbkdf2_elixir" level="project" />
     <orderEntry type="library" name="comeonin" level="project" />
+    <orderEntry type="library" name="phoenix_html_helpers" level="project" />
   </component>
 </module>

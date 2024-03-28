@@ -17,7 +17,7 @@
 
     </.simple_form>
 
-    <%= if @product != nil do%>
+    <%= if @product do%>
         <h1>Found this product</h1>
         <.list>
             <:item title="Name"><%= @product.name %></:item>
