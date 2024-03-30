@@ -22,6 +22,9 @@ defmodule PentoWeb.DemographicLive.Show do
 				<:col :let={demographic} label="Year of birth">
 					<%= demographic.year_of_birth %>
 				</:col>
+				<:col :let={demographic} label="Education">
+					<%= demographic.education %>
+				</:col>
 			</CoreComponents.table>
 		</div>
 		"""
