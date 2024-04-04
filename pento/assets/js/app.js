@@ -42,3 +42,15 @@ liveSocket.connect()
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
 
+const demographics = document.querySelector("#demographics");
+if (demographics) {
+    demographics.addEventListener("phx:show-end", () => {
+        const button = document.querySelector("button[name=toggle-visibility-button]");
+        button.textContent = "- contract";
+    });
+    demographics.addEventListener("phx:hide-end", () => {
+        const button = document.querySelector("button[name=toggle-visibility-button]");
+        button.textContent = "+ expand";
+    });
+}
+

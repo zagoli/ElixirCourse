@@ -32,7 +32,7 @@ defmodule Pento.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-			{:phoenix_html_helpers, "~> 1.0"},
+      {:phoenix_html_helpers, "~> 1.0"},
       {:pbkdf2_elixir, "~> 2.0"},
       {:phoenix, "~> 1.7.11"},
       {:phoenix_ecto, "~> 4.4"},
@@ -59,7 +59,8 @@ defmodule Pento.MixProject do
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
-      {:bandit, "~> 1.2"}
+      {:bandit, "~> 1.2"},
+      {:contex, "~> 0.4.0"}
     ]
   end
 

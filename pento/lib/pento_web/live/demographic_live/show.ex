@@ -12,7 +12,7 @@ defmodule PentoWeb.DemographicLive.Show do
 			<h2 class="font-medium text-2xl">
 				Demographics <%= raw "&#x2713;" %>
 			</h2>
-			<ExpandMore.expand_more id="demographics">
+			<ExpandMore.expand_more id="demographics" expanded={false}>
 					<h2>Gender: <%= @demographic.gender %></h2>
 					<h2>Year of birth: <%= @demographic.year_of_birth %></h2>
 					<h2>Education: <%= @demographic.education %></h2>

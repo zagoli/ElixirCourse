@@ -135,5 +135,8 @@
     <orderEntry type="library" name="pbkdf2_elixir" level="project" />
     <orderEntry type="library" name="comeonin" level="project" />
     <orderEntry type="library" name="phoenix_html_helpers" level="project" />
+    <orderEntry type="library" name="contex" level="project" />
+    <orderEntry type="library" name="nimble_strftime" level="project" />
+    <orderEntry type="library" name="sweet_xml" level="project" />
   </component>
 </module>
