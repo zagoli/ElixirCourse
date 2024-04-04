@@ -1,3 +1,6 @@
 <section class="ml-8">
     <h2 class="font-light text-2xl">Survey Results</h2>
+    <.list>
+        <:item :for={product <- @products_with_average_ratings} title={product |> elem(0)}><%= product |> elem(1) %></:item>
+    </.list>
 </section>
