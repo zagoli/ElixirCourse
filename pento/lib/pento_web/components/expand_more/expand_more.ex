@@ -16,7 +16,7 @@ defmodule PentoWeb.ExpandMore do
         <% else %>
           + expand
         <% end %>
-			</.button>
+ 			 </.button>
       <div id={@id} class={not @expanded && "hidden"}>
         <%= render_slot(@inner_block) %>
       </div>
