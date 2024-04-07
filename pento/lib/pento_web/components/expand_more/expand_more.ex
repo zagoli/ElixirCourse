@@ -13,7 +13,7 @@ defmodule PentoWeb.ExpandMore do
       <.button type="button" phx-click={toggle_visibility(@id)} name="toggle-visibility-button">
 	      <%= if @expanded do %>
           - contract
-        <%= else %>
+        <% else %>
           + expand
         <% end %>
 			</.button>

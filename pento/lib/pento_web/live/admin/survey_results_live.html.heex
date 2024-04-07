@@ -1,5 +1,22 @@
 <section class="ml-8">
     <h2 class="font-light text-2xl">Survey Results</h2>
+    <div class="container">
+            <.form
+            for={%{}}
+            as={:age_group_filter}
+            phx-change="age_group_filter"
+            phx-target={@myself}
+            id="age-group-form">
+                <label>By age group:</label>
+                <select name="age_group_filter" id="age_group_filter">
+                    <%= for age_group <- ["all", "18 and under", "18 to 25", "25 to 35", "35 and up"] do %>
+                        <option value={age_group} selected={@age_group_filter == age_group}>
+                            <%= age_group %>
+                        </option>
+                    <% end %>
+                </select>
+            </.form>
+        </div>
     <div id="survey-results-chart">
         <%= @svg_chart %>
     </div>
