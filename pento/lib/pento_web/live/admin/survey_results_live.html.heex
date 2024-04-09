@@ -1,14 +1,14 @@
 <section class="ml-8">
     <h2 class="font-light text-2xl">Survey Results</h2>
-    <p>You can filter the survey results by age group or by gender.</p>
+    <p class="mt-2">You can filter the survey results by age group and by gender.</p>
     <div class="container">
         <.form
         for={%{}}
-        as={:age_group_filter}
-        phx-change="age_group_filter"
+        as={:filter}
+        phx-change="filter_results"
         phx-target={@myself}
-        id="age-group-form">
-            <label>By age group:</label>
+        id="filters-form">
+            <label for="age_group_filter">By age group:</label>
             <select name="age_group_filter" id="age_group_filter">
                 <%= for age_group <- ["all", "18 and under", "18 to 25", "25 to 35", "35 and up"] do %>
                     <option value={age_group} selected={@age_group_filter == age_group}>
@@ -16,25 +16,16 @@
                     </option>
                 <% end %>
             </select>
+            <label for="gender_filter">By gender:</label>
+            <select name="gender_filter" id="gender_filter">
+                <%= for gender <- ["all", "male", "female", "other", "prefer not to say"] do %>
+                    <option value={gender} selected={@gender_filter == gender}>
+                        <%= gender %>
+                    </option>
+                <% end %>
+            </select>
         </.form>
     </div>
-    <div class="container">
-            <.form
-            for={%{}}
-            as={:gender_filter}
-            phx-change="gender_filter"
-            phx-target={@myself}
-            id="gender-form">
-                <label>By gender:</label>
-                <select name="gender_filter" id="gender_filter">
-                    <%= for gender <- ["all", "male", "female", "other", "prefer not to say"] do %>
-                        <option value={gender} selected={@gender_filter == gender}>
-                            <%= gender %>
-                        </option>
-                    <% end %>
-                </select>
-            </.form>
-        </div>
     <div id="survey-results-chart">
         <%= @svg_chart %>
     </div>
