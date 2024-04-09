@@ -1,10 +1,23 @@
 defmodule PentoWeb.Admin.DashboardLive do
-	use PentoWeb, :live_view
+  use PentoWeb, :live_view
+  alias PentoWeb.Endpoint
 
-	def mount(_params, _session, socket) do
-		{:ok, assign(socket, :survey_results_component_id, "survey-results")}
-	end
+  @survey_results_topic "survey_results"
 
+  def mount(_params, _session, socket) do
+    if connected?(socket) do
+      Endpoint.subscribe(@survey_results_topic)
+    end
 
+    {:ok, assign(socket, :survey_results_component_id, "survey-results")}
+  end
 
+  def handle_info(%{event: "rating_created"}, socket) do
+    send_update(
+      PentoWeb.Admin.SurveyResultsLive,
+      id: socket.assigns.survey_results_component_id
+    )
+
+    {:noreply, socket}
+  end
 end
