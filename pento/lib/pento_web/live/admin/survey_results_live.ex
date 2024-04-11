@@ -15,23 +15,23 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
      |> assign_svg_chart()}
   end
 
-  defp assign_age_group_filter(socket) do
+  def assign_age_group_filter(socket) do
 	  assign_new(socket, :age_group_filter, fn -> "all" end)
   end
 
-  defp assign_age_group_filter(socket, age_group_filter) do
+  def assign_age_group_filter(socket, age_group_filter) do
     assign(socket, :age_group_filter, age_group_filter)
   end
 
-  defp assign_gender_filter(socket) do
+  def assign_gender_filter(socket) do
 	  assign_new(socket, :gender_filter, fn -> "all" end)
   end
 
-  defp assign_gender_filter(socket, gender_filter) do
+  def assign_gender_filter(socket, gender_filter) do
     assign(socket, :gender_filter, gender_filter)
   end
 
-  defp assign_products_with_average_ratings(%{assigns: assigns} = socket) do
+  def assign_products_with_average_ratings(%{assigns: assigns} = socket) do
     assign(
       socket,
       :products_with_average_ratings,

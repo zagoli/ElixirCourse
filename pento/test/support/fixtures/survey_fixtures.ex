@@ -15,7 +15,7 @@ defmodule Pento.SurveyFixtures do
       |> Enum.into(%{
         gender: "male",
         year_of_birth: 1998,
-        user_id: user_fixture.id()
+        user_id: user_fixture().id
       })
       |> Pento.Survey.create_demographic()
 
