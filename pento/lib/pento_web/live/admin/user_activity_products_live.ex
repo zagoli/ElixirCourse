@@ -1,4 +1,4 @@
-defmodule PentoWeb.Admin.UserActivityLive do
+defmodule PentoWeb.Admin.UserActivityProductsLive do
 	use PentoWeb, :live_component
 	alias PentoWeb.Presence
 

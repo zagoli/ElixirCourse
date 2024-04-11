@@ -27,7 +27,7 @@ defmodule PentoWeb.ProductLive.Show do
          %{assigns: %{live_action: :show, current_user: current_user}} = socket
        ) do
     if connected?(socket) do
-      Presence.track_user(self(), product, current_user.email)
+      Presence.track_user_product(self(), product, current_user.email)
     end
   end
 

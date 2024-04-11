@@ -1,0 +1,7 @@
+<div class="user-activity-component ml-8">
+    <h2>User Activity Survey</h2>
+    <p>Active users currently compiling a survey</p>
+    <ul>
+        <li :for={email <- @user_activity}><%= email %></li>
+    </ul>
+</div>
