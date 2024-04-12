@@ -6,7 +6,7 @@ defmodule Pento.SurveyTest do
   describe "demographics" do
     alias Pento.Survey.Demographic
 
-    import Pento.{SurveyFixtures, AccountFixtures}
+    import Pento.{SurveyFixtures, AccountsFixtures}
 
     @invalid_attrs %{gender: nil, year_of_birth: nil}
 

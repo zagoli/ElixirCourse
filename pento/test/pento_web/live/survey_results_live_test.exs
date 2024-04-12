@@ -1,7 +1,6 @@
 defmodule PentoWeb.Admin.SurveyResultsLiveTest do
   use PentoWeb.ConnCase
   alias PentoWeb.Admin.SurveyResultsLive
-
   alias Pento.{Accounts, Survey, Catalog}
 
   @create_product_attrs %{
@@ -89,32 +88,60 @@ defmodule PentoWeb.Admin.SurveyResultsLiveTest do
       :create_product,
       :create_socket
     ]
+
     setup %{user: user} do
-	    create_demographic(user)
-	    user2 = user_fixture(@create_user2_attrs)
-	    demographic_fixture(user2, @create_demographic2_attrs)
-	    [user2: user2]
+      create_demographic(user)
+      user2 = user_fixture(@create_user2_attrs)
+      demographic_fixture(user2, @create_demographic2_attrs)
+      [user2: user2]
     end
 
     test "no ratings exist", %{socket: socket} do
-	    socket =
-		    socket
-		    |> SurveyResultsLive.assign_age_group_filter()
-		    |> SurveyResultsLive.assign_gender_filter()
-		    |> SurveyResultsLive.assign_products_with_average_ratings()
-	    assert socket.assigns.products_with_average_ratings == [{"Test Game", 0}]
+      socket =
+        socket
+        |> SurveyResultsLive.assign_age_group_filter()
+        |> SurveyResultsLive.assign_gender_filter()
+        |> SurveyResultsLive.assign_products_with_average_ratings()
+
+      assert socket.assigns.products_with_average_ratings == [{"Test Game", 0}]
     end
 
     test "ratings exist", %{socket: socket, product: product, user: user} do
-	    create_rating(2, user, product)
-	    socket =
-		    socket
-		    |> SurveyResultsLive.assign_age_group_filter()
-		    |> SurveyResultsLive.assign_gender_filter()
-		    |> SurveyResultsLive.assign_products_with_average_ratings()
-	    assert socket.assigns.products_with_average_ratings == [{"Test Game", 2.0}]
+      create_rating(2, user, product)
+
+      socket =
+        socket
+        |> SurveyResultsLive.assign_age_group_filter()
+        |> SurveyResultsLive.assign_gender_filter()
+        |> SurveyResultsLive.assign_products_with_average_ratings()
+
+      assert socket.assigns.products_with_average_ratings == [{"Test Game", 2.0}]
     end
 
+    test "ratings are filtered by age group", %{
+      socket: socket,
+      user: user,
+      product: product,
+      user2: user2
+    } do
+      create_rating(2, user, product)
+      create_rating(3, user2, product)
 
+      socket
+      |> SurveyResultsLive.assign_age_group_filter()
+      |> assert_keys(:age_group_filter, "all")
+      |> Phoenix.Component.assign(:age_group_filter, "18 and under")
+      |> SurveyResultsLive.assign_age_group_filter()
+      |> assert_keys(:age_group_filter, "18 and under")
+      |> SurveyResultsLive.assign_gender_filter()
+      |> SurveyResultsLive.assign_products_with_average_ratings()
+      |> assert_keys(:products_with_average_ratings, [{"Test Game", 2.0}])
+
+    end
+  end
+
+  defp assert_keys(socket, key, value) do
+	  assert socket.assigns[key] == value
+	  socket
   end
 end
