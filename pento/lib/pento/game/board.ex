@@ -9,6 +9,7 @@ defmodule Pento.Game.Board do
   def puzzles(), do: ~w{default wide widest medium tiny}a
 
   def new(:tiny), do: new(:small, rect(5, 3))
+  def new(:small), do: new(:small, rect(10, 4))
   def new(:widest), do: new(:all, rect(20, 3))
   def new(:wide), do: new(:all, rect(15, 4))
   def new(:medium), do: new(:all, rect(12, 5))
@@ -37,7 +38,7 @@ defmodule Pento.Game.Board do
     [board_shape | pento_shapes]
   end
 
-  def active?(board, shape_name) do
+  def active?(board, shape_name) when is_binary(shape_name) do
 	  active?(board, String.to_existing_atom(shape_name))
   end
   def active?(%{active_pento: %{name: shape_name}}, shape_name), do: true
