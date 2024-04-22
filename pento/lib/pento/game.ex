@@ -6,7 +6,7 @@ defmodule Pento.Game do
     illegal_drop: "Oops! You can't drop out of bounds or on another piece."
   }
 
-  def maybe_move(%{active_pento: nil}, _move), do: {:ok, board}
+  def maybe_move(%{active_pento: nil} = board, _move), do: {:ok, board}
 
   def maybe_move(board, move) do
     new_pento = move_fn(move).(board.active_pento)

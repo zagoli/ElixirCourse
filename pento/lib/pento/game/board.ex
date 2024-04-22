@@ -6,7 +6,7 @@ defmodule Pento.Game.Board do
             palette: [],
             points: []
 
-  def puzzles(), do: ~w{default wide widest medium tiny}a
+  def puzzles(), do: ~w{default wide widest medium tiny small ball donut}a
 
   def new(:tiny), do: new(:small, rect(5, 3))
   def new(:small), do: new(:small, rect(10, 4))
@@ -14,13 +14,20 @@ defmodule Pento.Game.Board do
   def new(:wide), do: new(:all, rect(15, 4))
   def new(:medium), do: new(:all, rect(12, 5))
   def new(:default), do: new(:all, rect(10, 6))
-  def new(palette, points), do: %__MODULE__{palette: palette(palette), points: points}
+  def new(:donut) do
+	  new(:all, rect(8, 8), (for x <- 4..5, y <- 4..5, do: {x, y}))
+  end
+  def new(:ball) do
+	  new(:all, rect(8, 8), (for x <- [1, 8], y <- [1, 8], do: {x, y}))
+  end
+  def new(palette, points, hole \\ []), do: %__MODULE__{palette: palette(palette), points: (points -- hole)}
 
   defp rect(x, y) do
     for x <- 1..x, y <- 1..y, do: {x, y}
   end
 
   defp palette(:all), do: [:i, :l, :y, :n, :p, :w, :u, :v, :s, :f, :x, :t]
+  defp palette(:medium), do: [:t, :y, :l, :p, :n, :v, :u]
   defp palette(:small), do: [:u, :v, :p]
 
   def to_shape(%__MODULE__{points: points}) do
